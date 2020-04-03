@@ -1,0 +1,36 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:DesktopGL
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+/reference:..\..\..\_libs\BabelEngine4\BabelEngine4Content\bin\Debug\net45\BabelEngine4.PipelineImporter.dll
+
+#---------------------------------- Content ---------------------------------#
+
+#begin skeleshooter-16x16.meta.json
+/importer:JsonImporter
+/processor:JsonContainerProcessor
+/build:skeleshooter-16x16.meta.json
+
+#begin skeleshooter-16x16.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:skeleshooter-16x16.png
+
+#begin skeleshooter-testmap.tmx
+/copy:skeleshooter-testmap.tmx
+
