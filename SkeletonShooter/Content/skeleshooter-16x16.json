@@ -22,6 +22,14 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 300
+   },
+   "skeleshooter-16x16 3.aseprite": {
+    "frame": { "x": 16, "y": 16, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 300
    }
  },
  "meta": {
@@ -33,7 +41,8 @@
   "scale": "1",
   "frameTags": [
    { "name": "player-idle", "from": 0, "to": 1, "direction": "forward" },
-   { "name": "grass", "from": 2, "to": 2, "direction": "forward" }
+   { "name": "grass", "from": 2, "to": 2, "direction": "forward" },
+   { "name": "player-shooting", "from": 3, "to": 3, "direction": "forward" }
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }

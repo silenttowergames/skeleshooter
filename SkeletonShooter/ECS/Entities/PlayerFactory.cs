@@ -14,6 +14,7 @@ using BabelEngine4.ECS.Components.AABB;
 using BabelEngine4.Misc;
 using SkeletonShooter.ECS.Components.Physics;
 using SkeletonShooter.ECS.Components.AI;
+using SkeletonShooter.ECS.Components.Shooting;
 
 namespace SkeletonShooter.ECS.Entities
 {
@@ -30,6 +31,7 @@ namespace SkeletonShooter.ECS.Entities
             e.Set(new Director());
             e.Set(new Walking() { Acc = 0.1f, Max = 1f });
             e.Set(new FlipSpriteOnX());
+            e.Set(new Shoot() { Cooldown = new Ticker(3) { ShouldReset = false }, Knockback = 1f, });
             e.Set(new AABB()
             {
                 Hitboxes = new Hitbox[]

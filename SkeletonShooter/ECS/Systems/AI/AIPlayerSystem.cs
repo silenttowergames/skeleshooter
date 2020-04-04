@@ -31,6 +31,7 @@ namespace SkeletonShooter.ECS.Systems.AI
                 director[Actions.MoveLeft] = App.input.keyboard.Down(Keys.Left) || App.input.gamepad1.Down(Buttons.DPadLeft);
                 director[Actions.Jump] = App.input.keyboard.Pressed(Keys.Up) || App.input.gamepad1.Pressed(Buttons.A);
                 director[Actions.JumpHold] = App.input.keyboard.Down(Keys.Up) || App.input.gamepad1.Down(Buttons.A);
+                director[Actions.Shoot] = App.input.keyboard.Down(Keys.Space) || App.input.gamepad1.Down(Buttons.X);
             }
         }
     }

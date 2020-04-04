@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using SkeletonShooter.ECS.Entities;
 using SkeletonShooter.ECS.Systems.AI;
 using SkeletonShooter.ECS.Systems.Physics;
+using SkeletonShooter.ECS.Systems.Shooting;
 using System;
 
 namespace SkeletonShooter
@@ -22,7 +23,8 @@ namespace SkeletonShooter
 
             // Player animations
             PlayerIdle = "player-idle",
-            PlayerWalk = "player-walk"
+            PlayerWalk = "player-walk",
+            PlayerShooting = "player-shooting"
         ;
     }
 
@@ -43,6 +45,8 @@ namespace SkeletonShooter
 
         Jump,
         JumpHold,
+
+        Shoot,
     }
 
     public static class Program
@@ -71,6 +75,7 @@ namespace SkeletonShooter
                 );
 
                 App.assets.addSprites(
+                    new BlankSpriteSheet("blank"),
                     new SpriteSheet("skeleshooter-16x16")
                 );
 
@@ -96,6 +101,8 @@ namespace SkeletonShooter
                     new DirectorSystem(),
 
                     // Physics systems
+                    new BulletSystem(),
+                    new ShootingSystem(),
                     new WalkingSystem(),
                     new GravitySystem(),
                     new AABBSystem(),
@@ -104,12 +111,13 @@ namespace SkeletonShooter
                     new CameraFollowSystem(),
                     new AnimationSystem(),
                     new MusicBasicSystem(),
-                    new FlipSpriteOnXSystem(),
+                    new FlipSpriteOnXSpecialSystem(),
                 };
 
                 App.Scenes.Add("test", new TiledScene("skeleshooter-testmap"));
 
                 App.Factories.Add("player", new PlayerFactory());
+                App.Factories.Add("bullet", new BulletFactory());
 
 #if DEBUG
                 App.SaveConfig = false;

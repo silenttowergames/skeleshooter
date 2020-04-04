@@ -43,14 +43,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ECS\Components\AI\AIPlayer.cs" />
+    <Compile Include="ECS\Components\AI\Bullet.cs" />
     <Compile Include="ECS\Components\AI\Director.cs" />
     <Compile Include="ECS\Components\Physics\Gravity.cs" />
     <Compile Include="ECS\Components\Physics\Walking.cs" />
+    <Compile Include="ECS\Components\Shooting\Shoot.cs" />
+    <Compile Include="ECS\Entities\BulletFactory.cs" />
     <Compile Include="ECS\Entities\PlayerFactory.cs" />
     <Compile Include="ECS\Systems\AI\AIPlayerSystem.cs" />
+    <Compile Include="ECS\Systems\AI\BulletSystem.cs" />
     <Compile Include="ECS\Systems\AI\DirectorSystem.cs" />
+    <Compile Include="ECS\Systems\Physics\FlipOnXSpecialSystem.cs" />
     <Compile Include="ECS\Systems\Physics\GravitySystem.cs" />
     <Compile Include="ECS\Systems\Physics\WalkingSystem.cs" />
+    <Compile Include="ECS\Systems\Shooting\ShootingSystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
