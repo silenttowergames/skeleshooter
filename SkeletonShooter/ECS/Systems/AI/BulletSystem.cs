@@ -23,12 +23,19 @@ namespace SkeletonShooter.ECS.Systems.AI
 
         public override void Update()
         {
+            entities = App.world.GetEntities().With<Body>().With<Bullet>().AsSet();
+
             foreach (ref readonly Entity entity in entities.GetEntities())
             {
                 ref Body body = ref entity.Get<Body>();
                 ref Bullet bullet = ref entity.Get<Bullet>();
 
-                body.Velocity += Compass.VelocityToMovement(1, bullet.compass.Rotation);
+                if (Math.Abs(body.EffectiveVelocity.X - body.InitialVelocity.X) > 0.0001f)
+                {
+                    App.RemoveEntity(entity);
+                }
+
+                body.Velocity += Compass.VelocityToMovement(bullet.Speed + bullet.InitialMovement, bullet.compass.Rotation);
             }
         }
     }

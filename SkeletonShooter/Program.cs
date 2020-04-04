@@ -92,9 +92,6 @@ namespace SkeletonShooter
                     new MenuSystem(),
                     new MenuItemSelectGoToSceneSystem(),
 
-                    // Gravity before AI
-                    //new GravitySystem(),
-
                     // AI systems
                     new AIPlayerSystem(),
                     // The last AI system!

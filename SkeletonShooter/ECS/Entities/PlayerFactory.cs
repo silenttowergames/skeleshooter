@@ -31,12 +31,12 @@ namespace SkeletonShooter.ECS.Entities
             e.Set(new Director());
             e.Set(new Walking() { Acc = 0.1f, Max = 1f });
             e.Set(new FlipSpriteOnX());
-            e.Set(new Shoot() { Cooldown = new Ticker(3) { ShouldReset = false }, Knockback = 1f, });
+            e.Set(new Shoot() { Cooldown = new Ticker(8) { ShouldReset = false }, Knockback = 1f, });
             e.Set(new AABB()
             {
                 Hitboxes = new Hitbox[]
                 {
-                    new Hitbox() { Bounds = new RectangleF(0, 2, 6, 12) }
+                    new Hitbox() { Bounds = new RectangleF(0, 2, 6, 12), PassThrough = false, }
                 }
             });
 

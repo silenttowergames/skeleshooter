@@ -10,5 +10,10 @@ namespace SkeletonShooter.ECS.Components.AI
     public struct Bullet
     {
         public Compass compass;
+
+        public float
+            InitialMovement,
+            Speed
+        ;
     }
 }

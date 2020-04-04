@@ -3,6 +3,7 @@ using BabelEngine4.ECS.Components;
 using BabelEngine4.ECS.Components.Rendering;
 using BabelEngine4.ECS.Systems;
 using DefaultEcs;
+using Microsoft.Xna.Framework;
 using SkeletonShooter.ECS.Components.AI;
 using SkeletonShooter.ECS.Components.Physics;
 using SkeletonShooter.ECS.Components.Shooting;
@@ -28,15 +29,14 @@ namespace SkeletonShooter.ECS.Systems.Shooting
             foreach (ref readonly Entity entity in entities.GetEntities())
             {
                 ref Director director = ref entity.Get<Director>();
+                ref Shoot shoot = ref entity.Get<Shoot>();
 
-                if (!director[Actions.Shoot])
+                if (!shoot.Cooldown.GetIsFinished())
                 {
                     continue;
                 }
 
-                ref Shoot shoot = ref entity.Get<Shoot>();
-
-                if (!shoot.Cooldown.GetIsFinished())
+                if (!director[Actions.Shoot])
                 {
                     continue;
                 }
@@ -47,13 +47,14 @@ namespace SkeletonShooter.ECS.Systems.Shooting
 
                 shoot.Cooldown.Reset();
 
-                //walking.Current -= 0.25f * (sprite.FlippedX ? -1 : 1);
-                body.Velocity.X -= shoot.Knockback * (sprite.FlippedX ? -1 : 1);
+                float Rotation = sprite.FlippedX ? 270 : 90;
 
-                Entity _bullet = App.Factories["bullet"].Create(0, 0, 1, body.Position);
-                //ref Bullet bullet = ref _bullet.Get<Bullet>();
+                Entity _bullet = App.Factories["bullet"].Create(0, 0, 1, body.Position + new Vector2(6 * (Rotation > 180 ? -1 : 1), 0));
+                ref Bullet bullet = ref _bullet.Get<Bullet>();
 
-                //bullet.compass.Rotation = 90;
+                bullet.compass.Rotation = Rotation;
+                //bullet.InitialMovement = (body.Velocity.X > 0) != (bullet.compass.Rotation < 180) ? body.Velocity.X : 0;
+                bullet.Speed = 3;
             }
         }
     }
