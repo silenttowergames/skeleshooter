@@ -35,9 +35,14 @@ namespace SkeletonShooter
     public enum Actions
     {
         None,
+
         MoveRight,
         MoveLeft,
+
+        Run,
+
         Jump,
+        JumpHold,
     }
 
     public static class Program

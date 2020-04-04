@@ -23,12 +23,16 @@ namespace SkeletonShooter.ECS.Systems.AI
 
         public override void Update()
         {
+            bool UsingJumpMod;
+
             foreach (ref readonly Entity entity in entities.GetEntities())
             {
                 ref Body body = ref entity.Get<Body>();
                 ref Director director = ref entity.Get<Director>();
                 ref Gravity gravity = ref entity.Get<Gravity>();
                 ref Walking walking = ref entity.Get<Walking>();
+
+                UsingJumpMod = false;
 
                 if (director[Actions.MoveRight] != director[Actions.MoveLeft])
                 {
@@ -52,6 +56,22 @@ namespace SkeletonShooter.ECS.Systems.AI
                     body.Velocity.Y = -gravity.Jump;
                     gravity.Current = -gravity.Jump;
                     gravity.Jumping = true;
+                }
+
+                if (
+                    director[Actions.JumpHold]
+                    &&
+                    gravity.Current < 0
+                )
+                {
+                    gravity.Current += gravity.Current * gravity.JumpHoldMod;
+
+                    UsingJumpMod = true;
+                }
+
+                if (gravity.Current < 0)
+                {
+                    gravity.Current += -Math.Abs(body.EffectiveVelocity.X) * (gravity.JumpHoldMod * (UsingJumpMod ? 0.5f : 0));
                 }
             }
         }

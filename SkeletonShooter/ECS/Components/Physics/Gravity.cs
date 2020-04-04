@@ -24,7 +24,10 @@ namespace SkeletonShooter.ECS.Components.Physics
             Current,
             Max,
 
-            Jump
+            Jump,
+            JumpHoldMod,
+            JumpSpeedMod,
+            JumpModMax
         ;
 
         public int
