@@ -41,3 +41,9 @@
 #begin skeleshooter-testmap.tmx
 /copy:skeleshooter-testmap.tmx
 
+#begin SlowMotionShader.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:SlowMotionShader.fx
+

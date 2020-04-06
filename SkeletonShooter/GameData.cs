@@ -8,6 +8,12 @@ namespace SkeletonShooter
 {
     public struct GameData
     {
-        public float TimeSpeed;
+        public bool CanTimeSpeed;
+
+        public float
+            TimeSpeed,
+            TimeSpeedCounter,
+            TimeSpeedLimit
+        ;
     }
 }

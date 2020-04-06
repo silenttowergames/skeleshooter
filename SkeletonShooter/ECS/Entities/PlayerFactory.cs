@@ -23,7 +23,8 @@ namespace SkeletonShooter.ECS.Entities
         public Entity Create(float LayerDepth, int LayerID, float Parallax, Vector2 Position = default, TiledObject obj = null)
         {
             Entity e = App.world.CreateEntity();
-            
+
+            e.Set(new MovingPlatformRecipient());
             e.Set(new Body() { Position = Position });
             e.Set(new Sprite("skeleshooter-16x16", Animations.PlayerIdle) { LayerDepth = LayerDepth, LayerID = LayerID });
             e.Set(new Gravity()
@@ -39,9 +40,11 @@ namespace SkeletonShooter.ECS.Entities
                     ShouldReset = false,
                 }
             });
+            e.Set(new RestartAfterFall());
             e.Set(new CameraFollow()
             {
                 FollowY = false,
+                Offset=new Vector2(-64, 0)
             });
             e.Set(new AIPlayer());
             e.Set(new Director());

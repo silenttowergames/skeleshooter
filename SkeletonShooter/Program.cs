@@ -1,5 +1,6 @@
 ﻿using BabelEngine4;
 using BabelEngine4.Assets.Fonts;
+using BabelEngine4.Assets.Shaders;
 using BabelEngine4.Assets.Sprites;
 using BabelEngine4.Assets.Tiled;
 using BabelEngine4.ECS.Systems;
@@ -7,6 +8,7 @@ using BabelEngine4.Rendering;
 using BabelEngine4.Scenes;
 using DefaultEcs;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SkeletonShooter.ECS.Entities;
 using SkeletonShooter.ECS.Systems.AI;
 using SkeletonShooter.ECS.Systems.HUD;
@@ -64,7 +66,9 @@ namespace SkeletonShooter
 
         public static GameData data = new GameData()
         {
+            CanTimeSpeed = true,
             TimeSpeed = 1f,
+            TimeSpeedLimit = 300,
         };
 
         public static string
@@ -93,7 +97,17 @@ namespace SkeletonShooter
                 );
 
                 App.assets.addShaders(
-                    //new Shader("TestShader")
+                    new Shader("SlowMotionShader", (Effect e, RenderTarget rt) =>
+                    {
+                        if (data.TimeSpeed != 1)
+                        {
+                            e.Parameters["SlowTime"].SetValue((1 - (1 / (data.TimeSpeedLimit / data.TimeSpeedCounter))) / 2);
+                        }
+                        else
+                        {
+                            e.Parameters["SlowTime"].SetValue(1f);
+                        }
+                    })
                 );
 
                 App.assets.addSprites(
@@ -103,7 +117,14 @@ namespace SkeletonShooter
 
                 App.renderTargets = new RenderTarget[]
                 {
-                    new RenderTarget((int)RenderTargets.Main, resolution - new Point(0, HUDHeight), new Point(0, HUDHeight)) { BGColor = Color.Black },
+                    new RenderTarget((int)RenderTargets.Main, resolution - new Point(0, HUDHeight), new Point(0, HUDHeight))
+                    {
+                        BGColor = Color.Black,
+                        shaders = new Shader[]
+                        {
+                            App.assets.shader("SlowMotionShader"),
+                        },
+                    },
                     new RenderTarget((int)RenderTargets.HUD, new Point(resolution.X, HUDHeight)) { BGColor = Color.Black },
                 };
 
@@ -128,9 +149,11 @@ namespace SkeletonShooter
                     new ShootingSystem(),
                     new WalkingSystem(),
                     new GravitySystem(),
+                    new MovingPlatformSystem(),
                     new AABBSystem(),
 
                     // Your post-movement systems
+                    new RestartAfterFallSystem(),
                     new CameraFollowSystem(),
                     new AnimationSystem(),
                     new MusicBasicSystem(),

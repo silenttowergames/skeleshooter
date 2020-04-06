@@ -8,6 +8,7 @@ using BabelEngine4.Misc;
 using DefaultEcs;
 using Microsoft.Xna.Framework;
 using SkeletonShooter.ECS.Components.AI;
+using SkeletonShooter.ECS.Components.Physics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace SkeletonShooter.ECS.Entities
         {
             Entity e = App.world.CreateEntity();
 
+            e.Set(new MovingPlatform());
             e.Set(new Body() { Position = Position });
             e.Set(new Sprite("blank", Animations.PlayerIdle) { LayerDepth = LayerDepth, LayerID = LayerID });
             e.Set(new Bullet());

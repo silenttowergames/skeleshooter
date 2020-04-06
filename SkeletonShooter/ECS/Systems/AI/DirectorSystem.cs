@@ -98,7 +98,7 @@ namespace SkeletonShooter.ECS.Systems.AI
                 if (
                     director[Actions.JumpHold]
                     &&
-                    gravity.CoyoteCounter >= 2
+                    gravity.CoyoteCounter >= 6
                     &&
                     (
                         gravity.StoppedHolding
