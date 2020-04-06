@@ -1,4 +1,5 @@
 ﻿using BabelEngine4;
+using BabelEngine4.Assets.Fonts;
 using BabelEngine4.Assets.Sprites;
 using BabelEngine4.Assets.Tiled;
 using BabelEngine4.ECS.Systems;
@@ -8,12 +9,20 @@ using DefaultEcs;
 using Microsoft.Xna.Framework;
 using SkeletonShooter.ECS.Entities;
 using SkeletonShooter.ECS.Systems.AI;
+using SkeletonShooter.ECS.Systems.HUD;
 using SkeletonShooter.ECS.Systems.Physics;
 using SkeletonShooter.ECS.Systems.Shooting;
+using SkeletonShooter.Scenes;
 using System;
 
 namespace SkeletonShooter
 {
+    /**
+     * TODO LIST:
+     * - Ability to slow down time
+     * - Float?
+     */
+
     public static class Animations
     {
         public static string
@@ -53,6 +62,15 @@ namespace SkeletonShooter
     {
         public static Array ActionsValues = Enum.GetValues(typeof(Actions));
 
+        public static GameData data = new GameData()
+        {
+            TimeSpeed = 1f,
+        };
+
+        public static string
+            DefaultFont = "PressStart2P"
+        ;
+
         [STAThread]
         static void Main()
         {
@@ -65,6 +83,10 @@ namespace SkeletonShooter
             using (App app = new App("Game Name", "v1.0.0", resolution, window))
             {
                 //App.windowManager.RoundZoom = false;
+
+                App.assets.addFonts(
+                    new Font(DefaultFont)
+                );
 
                 App.assets.addMaps(
                     new Map("skeleshooter-testmap")
@@ -92,6 +114,10 @@ namespace SkeletonShooter
                     new MenuSystem(),
                     new MenuItemSelectGoToSceneSystem(),
 
+                    // Time systems
+                    new TimeSpeedSystem(),
+                    new BulletHitboxesSystem(),
+
                     // AI systems
                     new AIPlayerSystem(),
                     // The last AI system!
@@ -109,10 +135,12 @@ namespace SkeletonShooter
                     new AnimationSystem(),
                     new MusicBasicSystem(),
                     new FlipSpriteOnXSpecialSystem(),
+                    new HUDTimeSpeedSystem(),
                 };
 
-                App.Scenes.Add("test", new TiledScene("skeleshooter-testmap"));
+                App.Scenes.Add("test", new GameplayScene("skeleshooter-testmap"));
 
+                App.Factories.Add("hud-time", new TimeSpeedHUDFactory());
                 App.Factories.Add("player", new PlayerFactory());
                 App.Factories.Add("bullet", new BulletFactory());
 

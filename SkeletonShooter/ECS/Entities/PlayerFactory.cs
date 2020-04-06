@@ -26,7 +26,23 @@ namespace SkeletonShooter.ECS.Entities
             
             e.Set(new Body() { Position = Position });
             e.Set(new Sprite("skeleshooter-16x16", Animations.PlayerIdle) { LayerDepth = LayerDepth, LayerID = LayerID });
-            e.Set(new Gravity() { Max = 5f, Acc = 0.4f, CoyoteCounterMax = 10, Jump = 3f, JumpHoldMod = 0.04f, JumpSpeedMod = 0.1f, });
+            e.Set(new Gravity()
+            {
+                Max = 5f,
+                Acc = 0.4f,
+                CoyoteCounterMax = 10,
+                Jump = 3f,
+                JumpHoldMod = 0.04f,
+                JumpSpeedMod = 0.1f,
+                floatTimer = new Ticker(90)
+                {
+                    ShouldReset = false,
+                }
+            });
+            e.Set(new CameraFollow()
+            {
+                FollowY = false,
+            });
             e.Set(new AIPlayer());
             e.Set(new Director());
             e.Set(new Walking() { Acc = 0.1f, Max = 1f });

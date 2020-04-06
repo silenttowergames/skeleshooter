@@ -35,7 +35,7 @@ namespace SkeletonShooter.ECS.Systems.AI
                     App.RemoveEntity(entity);
                 }
 
-                body.Velocity += Compass.VelocityToMovement(bullet.Speed + bullet.InitialMovement, bullet.compass.Rotation);
+                body.Velocity += Compass.VelocityToMovement(bullet.Speed + bullet.InitialMovement, bullet.compass.Rotation) * Program.data.TimeSpeed;
             }
         }
     }

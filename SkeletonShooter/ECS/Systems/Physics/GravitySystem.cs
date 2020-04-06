@@ -42,7 +42,10 @@ namespace SkeletonShooter.ECS.Systems.Physics
                 ref AABB aabb = ref entity.Get<AABB>();
                 ref Body body = ref entity.Get<Body>();
 
-                gravity.Current = Math.Min(gravity.Current + (gravity.Acc * (gravity.Current < 0 ? 0.5f : 1)), gravity.Max);
+                if (!gravity.CurrentlyHolding)
+                {
+                    gravity.Current = Math.Min(gravity.Current + (gravity.Acc * (gravity.Current < 0 ? 0.5f : 1)), gravity.Max);
+                }
 
                 gravity.CoyoteCounter = Math.Min(gravity.CoyoteCounter + 1, gravity.CoyoteCounterMax);
 

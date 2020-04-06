@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BabelEngine4.Misc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,11 @@ namespace SkeletonShooter.ECS.Components.Physics
             };
         }
 
-        public bool Jumping;
+        public bool
+            CurrentlyHolding,
+            Jumping,
+            StoppedHolding
+        ;
 
         public float
             Acc,
@@ -33,6 +38,10 @@ namespace SkeletonShooter.ECS.Components.Physics
         public int
             CoyoteCounter,
             CoyoteCounterMax
+        ;
+
+        public Ticker
+            floatTimer
         ;
     }
 }

@@ -49,11 +49,13 @@ namespace SkeletonShooter.ECS.Systems.Shooting
 
                 float Rotation = sprite.FlippedX ? 270 : 90;
 
+                body.Velocity.X += shoot.Knockback * (sprite.FlippedX ? 1 : -1);
+
                 Entity _bullet = App.Factories["bullet"].Create(0, 0, 1, body.Position + new Vector2(6 * (Rotation > 180 ? -1 : 1), 0));
                 ref Bullet bullet = ref _bullet.Get<Bullet>();
 
                 bullet.compass.Rotation = Rotation;
-                //bullet.InitialMovement = (body.Velocity.X > 0) != (bullet.compass.Rotation < 180) ? body.Velocity.X : 0;
+                
                 bullet.Speed = 3;
             }
         }

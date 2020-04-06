@@ -45,20 +45,27 @@
     <Compile Include="ECS\Components\AI\AIPlayer.cs" />
     <Compile Include="ECS\Components\AI\Bullet.cs" />
     <Compile Include="ECS\Components\AI\Director.cs" />
+    <Compile Include="ECS\Components\HUD\HUDTimeSpeed.cs" />
     <Compile Include="ECS\Components\Physics\Gravity.cs" />
     <Compile Include="ECS\Components\Physics\Walking.cs" />
     <Compile Include="ECS\Components\Shooting\Shoot.cs" />
     <Compile Include="ECS\Entities\BulletFactory.cs" />
     <Compile Include="ECS\Entities\PlayerFactory.cs" />
+    <Compile Include="ECS\Entities\TimeSpeedHUDFactory.cs" />
     <Compile Include="ECS\Systems\AI\AIPlayerSystem.cs" />
     <Compile Include="ECS\Systems\AI\BulletSystem.cs" />
     <Compile Include="ECS\Systems\AI\DirectorSystem.cs" />
+    <Compile Include="ECS\Systems\HUD\HUDTimeSpeedSystem.cs" />
     <Compile Include="ECS\Systems\Physics\FlipOnXSpecialSystem.cs" />
     <Compile Include="ECS\Systems\Physics\GravitySystem.cs" />
+    <Compile Include="ECS\Systems\Physics\TimeSpeedSystem.cs" />
     <Compile Include="ECS\Systems\Physics\WalkingSystem.cs" />
+    <Compile Include="ECS\Systems\Shooting\BulletHitboxesSystem.cs" />
     <Compile Include="ECS\Systems\Shooting\ShootingSystem.cs" />
+    <Compile Include="GameData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scenes\GameplayScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
