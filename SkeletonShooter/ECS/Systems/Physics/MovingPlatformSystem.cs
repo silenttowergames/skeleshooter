@@ -35,49 +35,53 @@ namespace SkeletonShooter.ECS.Systems.Physics
 
             float vAdd;
 
-            foreach (ref readonly Entity platform in platforms.GetEntities())
+            //foreach (ref readonly Entity platform in platforms.GetEntities())
+            foreach (ref readonly Entity recipient in recipients.GetEntities())
             {
-                ref AABB pAABB = ref platform.Get<AABB>();
-                ref Body pBody = ref platform.Get<Body>();
+                vAdd = 0;
 
-                for (int ph = 0; ph < pAABB.Hitboxes.Length; ph++)
+                ref AABB rAABB = ref recipient.Get<AABB>();
+                ref Body rBody = ref recipient.Get<Body>();
+
+                for (int rh = 0; rh < rAABB.Hitboxes.Length; rh++)
                 {
-                    if(pAABB.Hitboxes[ph].CanPass)
+                    if(rAABB.Hitboxes[rh].CanPass)
                     {
                         continue;
                     }
 
-                    pBounds = pAABB.Hitboxes[ph].GetRealBounds(pBody.Position);
+                    rBounds = rAABB.Hitboxes[rh].GetRealBounds(rBody.Position);
 
-                    foreach (ref readonly Entity recipient in recipients.GetEntities())
+                    foreach (ref readonly Entity platform in platforms.GetEntities())
                     {
-                        vAdd = 0;
+                        ref AABB pAABB = ref platform.Get<AABB>();
+                        ref Body pBody = ref platform.Get<Body>();
 
-                        ref AABB rAABB = ref recipient.Get<AABB>();
-                        ref Body rBody = ref recipient.Get<Body>();
-
-                        for (int rh = 0; rh < rAABB.Hitboxes.Length; rh++)
+                        for (int ph = 0; ph < pAABB.Hitboxes.Length; ph++)
                         {
-                            if (!rAABB.Hitboxes[rh].Solid)
+                            if (!pAABB.Hitboxes[ph].Solid)
                             {
                                 continue;
                             }
 
-                            rBounds = rAABB.Hitboxes[rh].GetRealBounds(rBody.Position);
+                            pBounds = pAABB.Hitboxes[ph].GetRealBounds(pBody.Position);
 
                             if (
-                                pBounds.LineX.Intersects(rBounds.LineX)
+                                rBounds.LineX.Intersects(pBounds.LineX)
                                 &&
-                                pBounds.Top - rBounds.Bottom < 1
+                                rBounds.Top - pBounds.Bottom < 1
                             )
                             {
-                                vAdd = Math.Max(vAdd, pBody.Velocity.X);
+                                if (Math.Abs(pBody.Velocity.X) > Math.Abs(vAdd))
+                                {
+                                    vAdd = pBody.Velocity.X;
+                                }
                             }
                         }
-
-                        rBody.Velocity.X += vAdd;
                     }
                 }
+
+                rBody.Velocity.X += vAdd;
             }
         }
     }
