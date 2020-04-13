@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SkeletonShooter.ECS.Entities;
 using SkeletonShooter.ECS.Systems.AI;
+using SkeletonShooter.ECS.Systems.HP;
 using SkeletonShooter.ECS.Systems.HUD;
 using SkeletonShooter.ECS.Systems.Physics;
 using SkeletonShooter.ECS.Systems.Shooting;
@@ -35,7 +36,10 @@ namespace SkeletonShooter
             // Player animations
             PlayerIdle = "player-idle",
             PlayerWalk = "player-walk",
-            PlayerShooting = "player-shooting"
+            PlayerShooting = "player-shooting",
+
+            // Demon animations
+            DemonIdle = "demon-idle"
         ;
     }
 
@@ -58,6 +62,12 @@ namespace SkeletonShooter
         JumpHold,
 
         Shoot,
+    }
+
+    public enum Team
+    {
+        GoodGuy,
+        BadGuy,
     }
 
     public static class Program
@@ -145,6 +155,7 @@ namespace SkeletonShooter
                     new DirectorSystem(),
 
                     // Physics systems
+                    new HealthSystem(),
                     new BulletSystem(),
                     new ShootingSystem(),
                     new WalkingSystem(),
@@ -164,8 +175,10 @@ namespace SkeletonShooter
                 App.Scenes.Add("test", new GameplayScene("skeleshooter-testmap"));
 
                 App.Factories.Add("hud-time", new TimeSpeedHUDFactory());
-                App.Factories.Add("player", new PlayerFactory());
                 App.Factories.Add("bullet", new BulletFactory());
+
+                App.Factories.Add("player", new PlayerFactory());
+                App.Factories.Add("demon", new DemonFactory());
 
 #if DEBUG
                 App.SaveConfig = false;

@@ -4,6 +4,7 @@ using BabelEngine4.ECS.Components.AABB;
 using BabelEngine4.ECS.Systems;
 using BabelEngine4.Misc;
 using DefaultEcs;
+using SkeletonShooter.ECS.Components.AI;
 using SkeletonShooter.ECS.Components.Physics;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,9 @@ namespace SkeletonShooter.ECS.Systems.Physics
                         ref AABB pAABB = ref platform.Get<AABB>();
                         ref Body pBody = ref platform.Get<Body>();
 
+                        // UNSAFE! What if they don't have a bullet component?
+                        ref Bullet bullet = ref platform.Get<Bullet>();
+
                         for (int ph = 0; ph < pAABB.Hitboxes.Length; ph++)
                         {
                             if (!pAABB.Hitboxes[ph].Solid)
@@ -69,13 +73,15 @@ namespace SkeletonShooter.ECS.Systems.Physics
                             if (
                                 rBounds.LineX.Intersects(pBounds.LineX)
                                 &&
-                                rBounds.Top - pBounds.Bottom < 1
+                                Math.Abs(rBounds.Bottom - pBounds.Top) < 0.25f
                             )
                             {
                                 if (Math.Abs(pBody.Velocity.X) > Math.Abs(vAdd))
                                 {
                                     vAdd = pBody.Velocity.X;
                                 }
+
+                                bullet.compass.Rotation += 0.1f * (vAdd > 0 ? 1 : -1);
                             }
                         }
                     }

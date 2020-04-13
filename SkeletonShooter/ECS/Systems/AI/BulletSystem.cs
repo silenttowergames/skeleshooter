@@ -30,7 +30,11 @@ namespace SkeletonShooter.ECS.Systems.AI
                 ref Body body = ref entity.Get<Body>();
                 ref Bullet bullet = ref entity.Get<Bullet>();
 
-                if (Math.Abs(body.EffectiveVelocity.X - body.InitialVelocity.X) > 0.0001f)
+                if (
+                    Math.Abs(body.EffectiveVelocity.X - body.InitialVelocity.X) > 0.0001f
+                    ||
+                    Math.Abs(body.EffectiveVelocity.Y - body.InitialVelocity.Y) > 0.0001f
+                )
                 {
                     App.RemoveEntity(entity);
                 }

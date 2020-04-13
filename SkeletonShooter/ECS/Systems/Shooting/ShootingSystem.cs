@@ -54,6 +54,8 @@ namespace SkeletonShooter.ECS.Systems.Shooting
                 Entity _bullet = App.Factories["bullet"].Create(1, 1, 1, body.Position + new Vector2(6 * (Rotation > 180 ? -1 : 1), 0));
                 ref Bullet bullet = ref _bullet.Get<Bullet>();
 
+                bullet.team = shoot.team;
+
                 bullet.compass.Rotation = Rotation;
                 
                 bullet.Speed = 3;

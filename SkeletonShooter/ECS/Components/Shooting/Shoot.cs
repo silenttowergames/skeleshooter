@@ -12,5 +12,7 @@ namespace SkeletonShooter.ECS.Components.Shooting
         public Ticker Cooldown;
 
         public float Knockback;
+
+        public Team team;
     }
 }

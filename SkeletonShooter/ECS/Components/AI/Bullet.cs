@@ -15,5 +15,7 @@ namespace SkeletonShooter.ECS.Components.AI
             InitialMovement,
             Speed
         ;
+
+        public Team team;
     }
 }

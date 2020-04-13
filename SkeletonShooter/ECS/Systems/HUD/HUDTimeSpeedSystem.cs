@@ -27,11 +27,13 @@ namespace SkeletonShooter.ECS.Systems.HUD
 
         public override void Update()
         {
-            if (TimeSpeed != Program.data.TimeSpeed)
-            {
-                TimeSpeed = Program.data.TimeSpeed;
+            float TimeSpeedUse = (float)Math.Floor(Program.data.TimeSpeed * 100);
 
-                TimeSpeedMessage = "Time Speed: " + TimeSpeed;
+            if (TimeSpeed != TimeSpeedUse)
+            {
+                TimeSpeed = TimeSpeedUse;
+
+                TimeSpeedMessage = "Time Speed: " + TimeSpeed + "%";
             }
 
             foreach (ref readonly Entity entity in entities.GetEntities())
